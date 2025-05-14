@@ -210,14 +210,14 @@
 }
 
 /* Action Cards */
-/* .preview-actions {
+.preview-action {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   margin: 40px auto;
   max-width: 1000px;
-} */
+}
 
 .action-card {
   background: white;

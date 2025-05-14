@@ -16,6 +16,7 @@ import SubscriptionPage from "./Components/Subscription/SubscriptionPage";
 import Payment from "./Components/Payment/Payment";
 import Employees from "./Components/Employees/Employees";
 import OAuthCallback from "./Common/Login/OAuthCallback";
+import UserGuide from "./Components/UserGuide/UserGuide";
 function App() {
   const location = useLocation();
   const hideLayout =
@@ -36,6 +37,7 @@ function App() {
         <Route path="/preview" element={<SignaturePreview />} />
         <Route path="/subscription" element={<SubscriptionPage />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/userguide" element={<UserGuide />} />
         <Route path="/oauth/callback" element={<OAuthCallback />} />
       </Routes>
 

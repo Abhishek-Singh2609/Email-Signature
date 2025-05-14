@@ -110,9 +110,10 @@ const PreviewSection = ({
       )}
       <div className="d-flex justify-content-end my-4">
         <button
-          className="btn "
+          className="btn"
           style={{ backgroundColor: "#4285F4", color: "white" }}
           onClick={navigateToPreview}
+          type="button"
         >
           <i className="bi bi-check2-circle me-2"></i>
           Preview

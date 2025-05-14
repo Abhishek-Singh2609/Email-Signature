@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import "./SignaturePreview.css";
 import email from "./email-body.png";
+// Import the SignatureLayout component to maintain consistent display
+import SignatureLayout from "../EditTemplate/SignatureLayouts/SignatureLayout";
+import { getDesignStyle } from "../EditTemplate/Tabs/DesignTab";
+import { getActiveCampaigns } from "../EditTemplate/utils/signatureUtils";
 
 const SignaturePreview = () => {
   const location = useLocation();
@@ -12,6 +16,9 @@ const SignaturePreview = () => {
 
   // Sanitize HTML to prevent XSS
   const cleanHTML = DOMPurify.sanitize(signatureHTML || "");
+
+  // Get the design style for the selected design
+  const designStyle = getDesignStyle(selectedDesign);
 
   // Handle Back Navigation - preserve the selected design and all form data
   const handleBack = () => {
@@ -126,10 +133,12 @@ const SignaturePreview = () => {
                 <p>Best regards,</p>
               </div>
 
+              {/* Use the SignatureLayout component to maintain consistent display */}
               <div className="email-signature-container">
-                <div
-                  className="signature-preview-content"
-                  dangerouslySetInnerHTML={{ __html: cleanHTML }}
+                <SignatureLayout
+                  formData={formData}
+                  selectedDesign={selectedDesign}
+                  designStyle={designStyle}
                 />
               </div>
 
@@ -137,58 +146,60 @@ const SignaturePreview = () => {
               {formData?.campaigns && (
                 <div className="banners-outside-preview">
                   <div>
-                    {formData.campaigns
-                      .filter((campaign) => campaign.active && campaign.image)
-                      .map((campaign) => (
+                    {getActiveCampaigns(formData.campaigns).map((campaign) => (
+                      <div
+                        key={campaign.id}
+                        style={{
+                          position: "relative",
+                          marginBottom: "10px",
+                          marginTop: "8px",
+                        }}
+                      >
+                        <img
+                          src={campaign.image}
+                          alt={campaign.name}
+                          style={{
+                            width: "75%",
+                            height: "auto",
+                            maxHeight: "100px",
+                            borderRadius: "4px",
+                          }}
+                        />
+                        {/* Clickable areas */}
                         <div
-                          key={campaign.id}
-                          style={{ position: "relative", marginBottom: "10px",marginTop:"8px" }}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                          }}
                         >
-                          <img
-                            src={campaign.image}
-                            alt={campaign.name}
-                            style={{
-                              width: "75%",
-                              height: "auto",
-                              maxHeight: "100px",
-                              borderRadius: "4px",
-                            }}
-                          />
-                          {/* Clickable areas */}
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              width: "100%",
-                              height: "100%",
-                            }}
-                          >
-                            {campaign.links.map(
-                              (link, index) =>
-                                link.url && (
-                                  <a
-                                    key={index}
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title={link.text}
-                                    style={{
-                                      position: "absolute",
-                                      left: `${link.area.x}%`,
-                                      top: `${link.area.y}%`,
-                                      width: `${link.area.width}%`,
-                                      height: `${link.area.height}%`,
-                                      display: "block",
-                                      zIndex: 2,
-                                      cursor: "pointer",
-                                    }}
-                                  />
-                                )
-                            )}
-                          </div>
+                          {campaign.links.map(
+                            (link, index) =>
+                              link.url && (
+                                <a
+                                  key={index}
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title={link.text}
+                                  style={{
+                                    position: "absolute",
+                                    left: `${link.area.x}%`,
+                                    top: `${link.area.y}%`,
+                                    width: `${link.area.width}%`,
+                                    height: `${link.area.height}%`,
+                                    display: "block",
+                                    zIndex: 2,
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              )
+                          )}
                         </div>
-                      ))}
+                      </div>
+                    ))}
                     {formData.banner && (
                       <div>
                         <img
@@ -215,7 +226,6 @@ const SignaturePreview = () => {
                     marginTop: "20px",
                     fontSize: "12px",
                     color: "#666",
-
                     paddingTop: "15px",
                     borderRadius: "4px",
                     maxWidth: "100%",
@@ -232,7 +242,7 @@ const SignaturePreview = () => {
         </div>
       </div>
 
-      <div className="preview-actions">
+      <div className="preview-action">
         <div className="action-card">
           <div className="action-icon">📋</div>
           <h3>Copy to Clipboard</h3>

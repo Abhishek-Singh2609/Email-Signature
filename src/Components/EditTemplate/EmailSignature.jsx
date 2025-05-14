@@ -141,7 +141,11 @@ const EmailSignatureCreator = () => {
   };
 
   const navigateToPreview = () => {
-    const signatureHTML = generateSignatureHTML();
+    const signatureHTML = generateSignatureHTML(
+      formData,
+      selectedDesign,
+      designStyle
+    );
     navigate("/preview", {
       state: {
         signatureHTML,
@@ -164,7 +168,7 @@ const EmailSignatureCreator = () => {
       console.log(signatureHTML);
 
       const response = await axios.post(
-        "https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.nets/apply-signature",
+        "https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/apply-signature",
         {
           email: formData.email,
           organization,
@@ -294,7 +298,7 @@ const EmailSignatureCreator = () => {
             getActiveCampaigns={() => getActiveCampaigns(formData.campaigns)}
             navigateToPreview={navigateToPreview}
             handleSendData={handleSendData}
-            postData={formData}
+            isSending={isSending}
           />
         </div>
       </div>
