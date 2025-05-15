@@ -168,7 +168,8 @@ const EmailSignatureCreator = () => {
       console.log(signatureHTML);
 
       const response = await axios.post(
-        "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net",
+        // https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/apply-signature
+        "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net//apply-signature",
         {
           email: formData.email,
           organization,
@@ -307,5 +308,3 @@ const EmailSignatureCreator = () => {
 };
 
 export default EmailSignatureCreator;
-
-// https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/apply-signature

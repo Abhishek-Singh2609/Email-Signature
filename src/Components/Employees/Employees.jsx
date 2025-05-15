@@ -38,7 +38,7 @@ const EmployeeSignatureGenerator = () => {
 
       try {
         const response = await axios.get(
-          "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net",
+          "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net/employees",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
