@@ -186,7 +186,7 @@ const Navbar = () => {
     try {
       const response = await fetch(
         // "https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/auth/logout",
-        "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net",
+        "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net/auth/logout",
 
         {
           method: "GET",
