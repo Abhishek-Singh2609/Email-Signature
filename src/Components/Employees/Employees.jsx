@@ -34,10 +34,11 @@ const EmployeeSignatureGenerator = () => {
         window.location.href = "/login";
         return;
       }
+      // "https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/employees",
 
       try {
         const response = await axios.get(
-          "https://agile-email-signature-dydmacbfh4e6cmf0.canadacentral-01.azurewebsites.net/employees",
+          "https://email-signature-ewasbjbvendvfwck.canadacentral-01.azurewebsites.net",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
